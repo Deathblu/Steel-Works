@@ -10,6 +10,8 @@ export function Navbar() {
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/products", label: "Products" },
+    { href: "/about", label: "About" },
+    { href: "/company", label: "Company" },
     { href: "/contact", label: "Contact Us" },
   ];
 
@@ -66,7 +68,7 @@ export function Navbar() {
                 {link.label}
               </Link>
             ))}
-            <Link href="/contact">
+            <Link href="/quote">
               <Button className="bg-accent hover:bg-accent/90 text-white font-bold tracking-wide uppercase text-xs px-6">
                 Get a Quote
               </Button>
@@ -102,7 +104,7 @@ export function Navbar() {
               </Link>
             ))}
             <div className="pt-4 px-3">
-              <Link href="/contact" onClick={() => setIsOpen(false)}>
+              <Link href="/quote" onClick={() => setIsOpen(false)}>
                 <Button className="w-full bg-accent hover:bg-accent/90 text-white uppercase font-bold">
                   Request Quote
                 </Button>
