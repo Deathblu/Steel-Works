@@ -2,23 +2,26 @@ import { Link, useLocation } from "wouter";
 import { Menu, X, Phone, Mail } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { GetQuoteDialog } from "@/components/GetQuoteDialog";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [quoteDialogOpen, setQuoteDialogOpen] = useState(false);
   const [location] = useLocation();
 
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/products", label: "Products" },
     { href: "/about", label: "About" },
-    { href: "/company", label: "Company" },
     { href: "/contact", label: "Contact Us" },
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur shadow-sm border-b border-border/40">
-      {/* Top Bar for Contact Info */}
-      <div className="bg-primary text-primary-foreground py-2 px-4 text-xs font-medium tracking-wide">
+    <>
+      <GetQuoteDialog open={quoteDialogOpen} onOpenChange={setQuoteDialogOpen} />
+      <header className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur shadow-sm border-b border-border/40">
+        {/* Top Bar for Contact Info */}
+        <div className="bg-primary text-primary-foreground py-2 px-4 text-xs font-medium tracking-wide">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="flex items-center space-x-6">
             <span className="flex items-center gap-2">
@@ -32,7 +35,7 @@ export function Navbar() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-border/40">
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group cursor-pointer">
@@ -68,11 +71,12 @@ export function Navbar() {
                 {link.label}
               </Link>
             ))}
-            <Link href="/quote">
-              <Button className="bg-accent hover:bg-accent/90 text-white font-bold tracking-wide uppercase text-xs px-6">
-                Get a Quote
-              </Button>
-            </Link>
+            <Button 
+              onClick={() => setQuoteDialogOpen(true)}
+              className="bg-accent hover:bg-accent/90 text-white font-bold tracking-wide uppercase text-xs px-6"
+            >
+              Get a Quote
+            </Button>
           </nav>
 
           {/* Mobile Menu Button */}
@@ -104,15 +108,20 @@ export function Navbar() {
               </Link>
             ))}
             <div className="pt-4 px-3">
-              <Link href="/quote" onClick={() => setIsOpen(false)}>
-                <Button className="w-full bg-accent hover:bg-accent/90 text-white uppercase font-bold">
-                  Request Quote
-                </Button>
-              </Link>
+              <Button 
+                onClick={() => {
+                  setQuoteDialogOpen(true);
+                  setIsOpen(false);
+                }}
+                className="w-full bg-accent hover:bg-accent/90 text-white uppercase font-bold"
+              >
+                Request Quote
+              </Button>
             </div>
           </div>
         </div>
       )}
     </header>
+    </>
   );
 }
